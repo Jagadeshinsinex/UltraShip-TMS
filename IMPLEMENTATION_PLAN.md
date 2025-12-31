@@ -2,15 +2,6 @@
 
 This plan outlines the steps to implement the requested features: Dark Mode, CRUD for Drivers/Vehicles, Analytics Export, Notifications, Map Integration, and Tracking Timeline.
 
-## 1. Dark Mode (Theme Support)
-**Goal**: Allow users to toggle between Light and Dark modes.
-- **Tailwind Config**: Update `tailwind.config.js` to set `darkMode: 'class'`.
-- **Theme Context**: Create `src/context/ThemeContext.tsx` to manage `theme` state ('light' | 'dark') and persist to localStorage.
-- **Theme Toggle**: Add a toggle button in `Header.tsx` or `Sidebar.tsx`.
-- **CSS Updates**:
-    - Update `index.css` to remove conflicting media queries if necessary.
-    - Global find-and-replace to add `dark:` utility classes for background, text, and border colors across all major components (`Sidebar`, `Header`, `ShipmentCard`, `Dashboard`, etc.).
-
 ## 2. Notification System
 **Goal**: Provide feedback for actions (e.g., "Driver Added Successfully", "Export Started").
 - **Context**: Create `src/context/NotificationContext.tsx`.
