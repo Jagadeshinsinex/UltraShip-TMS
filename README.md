@@ -11,6 +11,8 @@ The project is optimized for deployment at `ultraship.jagadesh.in`.
 - **Satellite Detail HUD**: Tracking view with tactical satellite map simulations and radar alerts.
 - **Infinite Scalability**: Built with GraphQL server-side pagination, searching, and sorting.
 - **Hybrid UI**: Toggle between high-density Table mode and visual Card mode.
+- **Fleet Management**: Dedicated pages for managing Drivers and Vehicles with status tracking.
+- **Analytics Engine**: Real-time reporting on shipment performance, active routes, and risk assessment.
 
 ## 💻 Tech Stack
 - **UI**: React 18, TypeScript, Tailwind CSS.
