@@ -3,7 +3,7 @@
 **UltraShip TMS** is a professional-tier Transportation Management System built for modern logistics operations. It provides a "Mission Control" experience, enabling fleet managers to track, filter, and manage thousands of shipments with high-density efficiency.
 
 ## 🚀 Live Demo Ready
-The project is optimized for deployment at `ultraship.jagadesh.in`.
+The project is optimized for deployment at `ultraship.jagadesh.in`
 
 ## 🛠️ Core Features
 - **Mission Control Dashboard**: Single-page horizontal command bar with real-time KPI overview.
