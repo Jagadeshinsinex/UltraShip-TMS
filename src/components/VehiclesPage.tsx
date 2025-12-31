@@ -9,8 +9,8 @@ import { useAuth } from '../context/AuthContext';
 import { useSearch } from '../context/SearchContext';
 
 const GET_SHIPMENTS = gql`
-  query GetShipments {
-    getShipments(limit: 1000) {
+  query GetShipments($limit: Int) {
+    getShipments(limit: $limit) {
       shipments {
         id
         name
@@ -26,7 +26,9 @@ const GET_SHIPMENTS = gql`
 
 
 export const VehiclesPage: React.FC = () => {
-    const { loading, error, data } = useQuery(GET_SHIPMENTS);
+    const { loading, error, data } = useQuery(GET_SHIPMENTS, {
+        variables: { limit: 1000 }
+    });
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [openMenuId, setOpenMenuId] = useState<string | null>(null);
     const [editingVehicle, setEditingVehicle] = useState<Vehicle | null>(null);

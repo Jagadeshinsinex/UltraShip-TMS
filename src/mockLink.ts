@@ -33,7 +33,7 @@ export const mockLink = new ApolloLink((operation) => {
             try {
                 let data = {};
 
-                if (operationName === 'GetShipments') {
+                if (['GetShipments', 'GetAllShipmentsStats', 'GetRecentShipments'].includes(operationName)) {
                     let result = [...shipments];
 
                     // 1. Filtering by Status (Tab)

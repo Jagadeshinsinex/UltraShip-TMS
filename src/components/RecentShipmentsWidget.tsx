@@ -5,8 +5,8 @@ import { StatusBadge } from './StatusBadge';
 import type { Shipment } from '../types';
 
 const GET_RECENT_SHIPMENTS = gql`
-  query GetRecentShipments {
-    getShipments(limit: 5, offset: 0, sortBy: "age_ASC") {
+  query GetRecentShipments($limit: Int, $offset: Int, $sortBy: String) {
+    getShipments(limit: $limit, offset: $offset, sortBy: $sortBy) {
       shipments {
         id
         name
@@ -24,6 +24,7 @@ interface RecentShipmentsWidgetProps {
 
 export const RecentShipmentsWidget: React.FC<RecentShipmentsWidgetProps> = ({ onViewAll, onSelectShipment }) => {
     const { data, loading } = useQuery(GET_RECENT_SHIPMENTS, {
+        variables: { limit: 5, offset: 0, sortBy: 'age_ASC' },
         fetchPolicy: 'cache-first'
     });
 

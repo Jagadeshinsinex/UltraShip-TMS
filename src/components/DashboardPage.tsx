@@ -6,8 +6,8 @@ import { LiveActivityFeed } from './LiveActivityFeed';
 import type { Shipment } from '../types';
 
 const GET_ALL_SHIPMENTS_STATS = gql`
-  query GetAllShipmentsStats {
-    getShipments(limit: 1000) {
+  query GetAllShipmentsStats($limit: Int) {
+    getShipments(limit: $limit) {
       shipments {
         id
         attendance
@@ -24,6 +24,7 @@ interface DashboardPageProps {
 
 export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigateToShipments, onSelectShipment }) => {
     const { data, loading } = useQuery(GET_ALL_SHIPMENTS_STATS, {
+        variables: { limit: 1000 },
         pollInterval: 30000 // Poll every 30s to keep "live"
     });
 
