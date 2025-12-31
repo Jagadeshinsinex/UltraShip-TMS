@@ -1,6 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { gql, useMutation } from '@apollo/client';
-
 // Define the shape of our Auth Context
 interface AuthContextType {
     role: 'ADMIN' | 'EMPLOYEE' | null;
@@ -12,19 +10,10 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const LOGIN_MUTATION = gql`
-  mutation Login($role: String!) {
-    login(role: $role) {
-      token
-      role
-    }
-  }
-`;
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [role, setRole] = useState<'ADMIN' | 'EMPLOYEE' | null>(null);
-    const [loading, setLoading] = useState(true); // Default to true to prevent flash
-    const [loginMutation] = useMutation(LOGIN_MUTATION);
+    const [role, setRole] = useState<'ADMIN' | 'EMPLOYEE' | null>('ADMIN');
+    const [loading, setLoading] = useState(false);
+
 
     // Check local storage on initial load
     useEffect(() => {
@@ -36,17 +25,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, []);
 
     const login = async (selectedRole: 'ADMIN' | 'EMPLOYEE') => {
-        try {
-            const { data } = await loginMutation({ variables: { role: selectedRole } });
-            if (data?.login?.token) {
-                localStorage.setItem('token', data.login.token);
-                localStorage.setItem('userRole', selectedRole);
-                setRole(selectedRole);
-            }
-        } catch (error) {
-            console.error("Login failed:", error);
-            alert("Login failed. Please try again.");
-        }
+        // Mock Login - Client Only Mode
+        localStorage.setItem('token', 'mock-token');
+        localStorage.setItem('userRole', selectedRole);
+        setRole(selectedRole);
     };
 
     const logout = () => {

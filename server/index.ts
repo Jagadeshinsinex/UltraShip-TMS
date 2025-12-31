@@ -8,7 +8,7 @@ import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
 import { typeDefs } from './schema';
 import { resolvers } from './resolvers';
-
+import path from 'path';
 const SECRET_KEY = "ultra-secret-key";
 
 interface MyContext {
@@ -30,7 +30,7 @@ async function startServer() {
     app.use(
         '/graphql',
         cors<cors.CorsRequest>({
-            origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176"],
+            origin: true, // Allow all origins for simplicity in demo
             credentials: true
         }),
         bodyParser.json(),
@@ -45,17 +45,23 @@ async function startServer() {
                 } catch (e) {
                     // Invalid token
                 }
-                // Default to guest/employee read-only for now if we want to allow viewing without login, 
-                // but requirement asks for RBAC. Let's assume unauthenticated users have no role 
-                // or we assign a default 'Viewer' role if they just want to see the page.
-                // For this POC, we'll return empty user if not logged in.
                 return { user: { role: 'Guest' } };
             },
         }),
     );
 
-    await new Promise<void>((resolve) => httpServer.listen({ port: 4001 }, resolve));
-    console.log(`🚀 UltraShip Backend ready at http://localhost:4001/graphql`);
+    // Serve static files from the React app
+    app.use(express.static(path.join(process.cwd(), 'dist')));
+
+    // The "catchall" handler: for any request that doesn't
+    // match one above, send back React's index.html file.
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(process.cwd(), 'dist/index.html'));
+    });
+
+    const PORT = process.env.PORT || 4001;
+    await new Promise<void>((resolve) => httpServer.listen({ port: PORT }, resolve));
+    console.log(`🚀 UltraShip Backend ready on port ${PORT}`);
 }
 
 startServer();

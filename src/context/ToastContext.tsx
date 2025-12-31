@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { CheckCircle, XCircle, X } from 'lucide-react';
+import { CheckCircle, XCircle, X, AlertCircle } from 'lucide-react';
 
-type ToastType = 'success' | 'error';
+type ToastType = 'success' | 'error' | 'info';
 
 interface ToastContextType {
     showToast: (message: string, type: ToastType) => void;
@@ -45,9 +45,9 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 {toast && (
                     <div className={`
             flex items-center gap-3 px-5 py-4 rounded-xl shadow-2xl backdrop-blur-md border border-white/20 min-w-[300px]
-            ${toast.type === 'success' ? 'bg-emerald-500/90 text-white' : 'bg-red-500/90 text-white'}
+            ${toast.type === 'success' ? 'bg-emerald-500/90 text-white' : toast.type === 'info' ? 'bg-blue-500/90 text-white' : 'bg-red-500/90 text-white'}
           `}>
-                        {toast.type === 'success' ? <CheckCircle size={24} /> : <XCircle size={24} />}
+                        {toast.type === 'success' ? <CheckCircle size={24} /> : toast.type === 'info' ? <AlertCircle size={24} /> : <XCircle size={24} />}
                         <div className="flex-1">
                             <h4 className="font-bold text-sm">{toast.type === 'success' ? 'Success' : 'Error'}</h4>
                             <p className="text-sm opacity-90">{toast.message}</p>

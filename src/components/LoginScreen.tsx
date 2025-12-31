@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Shield, Users, Briefcase, Loader2, User as UserIcon, Globe } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
