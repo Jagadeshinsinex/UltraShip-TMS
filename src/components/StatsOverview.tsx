@@ -1,5 +1,5 @@
 import React from 'react';
-import { Truck, Clock, AlertTriangle, TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
+import { Truck, Clock, AlertTriangle, TrendingUp, TrendingDown, IndianRupee } from 'lucide-react';
 import { clsx } from 'clsx';
 
 interface StatCardProps {
@@ -32,12 +32,36 @@ const StatCard: React.FC<StatCardProps> = ({ label, value, trend, trendType, ico
     </div>
 );
 
-export const StatsOverview: React.FC = () => {
+interface StatsOverviewProps {
+    stats: {
+        activeShipments: number;
+        onTimeDelivery: number;
+        freightSpend: number;
+        criticalAlerts: number;
+    };
+    loading?: boolean;
+}
+
+export const StatsOverview: React.FC<StatsOverviewProps> = ({ stats, loading }) => {
+    if (loading) {
+        return (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[...Array(4)].map((_, i) => (
+                    <div key={i} className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm h-32 animate-pulse">
+                        <div className="h-8 w-8 bg-slate-100 rounded-lg mb-4"></div>
+                        <div className="h-4 w-24 bg-slate-100 rounded mb-2"></div>
+                        <div className="h-8 w-16 bg-slate-100 rounded"></div>
+                    </div>
+                ))}
+            </div>
+        );
+    }
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <StatCard
                 label="Active Shipments"
-                value="248"
+                value={stats.activeShipments.toLocaleString()}
                 trend="+12%"
                 trendType="up"
                 icon={Truck}
@@ -45,7 +69,7 @@ export const StatsOverview: React.FC = () => {
             />
             <StatCard
                 label="On-Time Delivery"
-                value="98.2%"
+                value={`${stats.onTimeDelivery.toFixed(1)}%`}
                 trend="+0.5%"
                 trendType="up"
                 icon={Clock}
@@ -53,19 +77,19 @@ export const StatsOverview: React.FC = () => {
             />
             <StatCard
                 label="Freight Spend"
-                value="$14.2k"
+                value={`₹${stats.freightSpend.toLocaleString()}`}
                 trend="-3.2%"
                 trendType="down"
-                icon={DollarSign}
+                icon={IndianRupee}
                 color="bg-amber-500"
             />
             <StatCard
                 label="Critical Alerts"
-                value="3"
-                trend="Action Needed"
-                trendType="down"
+                value={stats.criticalAlerts.toString()}
+                trend={stats.criticalAlerts > 0 ? "Action Needed" : "All Clear"}
+                trendType={stats.criticalAlerts > 0 ? "down" : "up"}
                 icon={AlertTriangle}
-                color="bg-rose-500"
+                color={stats.criticalAlerts > 0 ? "bg-rose-500" : "bg-emerald-500"}
             />
         </div>
     );

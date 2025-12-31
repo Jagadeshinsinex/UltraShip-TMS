@@ -8,6 +8,9 @@ export const typeDefs = gql`
     class: String
     subjects: [String]
     attendance: Float
+    origin: String
+    destination: String
+    priority: String
   }
 
   type ShipmentConnection {
@@ -21,6 +24,9 @@ export const typeDefs = gql`
     class: String!
     subjects: [String!]!
     attendance: Float!
+    origin: String
+    destination: String
+    priority: String
   }
 
   input UpdateShipmentInput {
@@ -29,6 +35,9 @@ export const typeDefs = gql`
     class: String
     subjects: [String]
     attendance: Float
+    origin: String
+    destination: String
+    priority: String
   }
 
   type AuthPayload {

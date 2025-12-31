@@ -1,9 +1,10 @@
 import React from 'react';
 import type { Shipment } from '../types';
-import { ChevronLeft, Package, MapPin, Truck, User, Clock, Thermometer, Droplets, Zap, Activity } from 'lucide-react';
+import { ChevronLeft, Package, User, Clock, Thermometer, Droplets, Zap, Activity } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useToast } from '../context/ToastContext';
 import { RouteMap } from './RouteMap';
+import { TrackingTimeline } from './TrackingTimeline';
 
 interface ShipmentDetailProps {
     shipment: Shipment;
@@ -12,10 +13,6 @@ interface ShipmentDetailProps {
 
 export const ShipmentDetail: React.FC<ShipmentDetailProps> = ({ shipment, onBack }) => {
     const { showToast } = useToast();
-
-    // Map Progress to Steps
-    const currentStep = shipment.attendance >= 100 ? 4 : shipment.attendance > 50 ? 3 : shipment.attendance > 0 ? 2 : 1;
-    const steps = ['Ordered', 'Picked Up', 'In Transit', 'Delivered'];
 
     // Simulated Sensor Data
     const sensors = [
@@ -26,12 +23,12 @@ export const ShipmentDetail: React.FC<ShipmentDetailProps> = ({ shipment, onBack
     ];
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden animate-in slide-in-from-right-4 duration-300">
+        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden animate-in slide-in-from-right-4 duration-300">
             {/* Header */}
-            <div className="border-b border-slate-100 p-6">
+            <div className="border-b border-slate-100 dark:border-slate-800 p-6">
                 <button
                     onClick={onBack}
-                    className="flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 mb-4 transition-colors"
+                    className="flex items-center text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 mb-4 transition-colors"
                 >
                     <ChevronLeft size={16} className="mr-1" />
                     Back to Shipments
@@ -40,17 +37,17 @@ export const ShipmentDetail: React.FC<ShipmentDetailProps> = ({ shipment, onBack
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                     <div>
                         <div className="flex items-center gap-3 mb-2">
-                            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Shipment {shipment.id}</h2>
+                            <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Shipment {shipment.id}</h2>
                             <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-100 uppercase tracking-widest shadow-sm">
                                 {shipment.attendance >= 100 ? 'Delivered' : 'Live Tracking'}
                             </span>
                         </div>
-                        <p className="text-slate-500 font-medium">Global Logistics System ID: <span className="text-slate-900 font-bold">{shipment.id.toUpperCase()}</span></p>
+                        <p className="text-slate-500 dark:text-slate-400 font-medium">Global Logistics System ID: <span className="text-slate-900 dark:text-white font-bold">{shipment.id.toUpperCase()}</span></p>
                     </div>
                     <div className="flex items-center gap-3 self-end md:self-center">
                         <button
                             onClick={() => showToast("Invoice Download Started...", 'success')}
-                            className="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl hover:bg-slate-50 transition-all text-xs shadow-sm uppercase tracking-wider"
+                            className="px-5 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-all text-xs shadow-sm uppercase tracking-wider"
                         >
                             Download Manifest
                         </button>
@@ -65,7 +62,7 @@ export const ShipmentDetail: React.FC<ShipmentDetailProps> = ({ shipment, onBack
             </div>
 
             {/* Live Map Component */}
-            <div className="p-6 bg-slate-50/50 border-b border-slate-100">
+            <div className="p-6 bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800">
                 <div className="mb-4 flex items-center justify-between">
                     <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
                         <Activity size={16} className="text-indigo-500" />
@@ -86,42 +83,10 @@ export const ShipmentDetail: React.FC<ShipmentDetailProps> = ({ shipment, onBack
             </div>
 
             {/* Timeline */}
-            <div className="p-8 border-b border-slate-100">
-                <div className="max-w-4xl mx-auto">
-                    <div className="relative flex justify-between">
-                        <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-100 -translate-y-1/2 z-0 rounded-full"></div>
-                        <div
-                            className="absolute top-1/2 left-0 h-1 bg-indigo-600 -translate-y-1/2 z-0 rounded-full transition-all duration-1000 ease-out"
-                            style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
-                        ></div>
-
-                        {steps.map((step, index) => {
-                            const isActive = index + 1 <= currentStep;
-                            return (
-                                <div key={step} className="relative z-10 flex flex-col items-center gap-3">
-                                    <div
-                                        className={clsx(
-                                            "w-10 h-10 rounded-full flex items-center justify-center border-4 transition-all duration-500",
-                                            isActive
-                                                ? "bg-indigo-600 border-indigo-100 text-white shadow-lg shadow-indigo-200"
-                                                : "bg-white border-slate-100 text-slate-300"
-                                        )}
-                                    >
-                                        {index === 0 && <Package size={18} />}
-                                        {index === 1 && <Truck size={18} />}
-                                        {index === 2 && <MapPin size={18} />}
-                                        {index === 3 && <User size={18} />}
-                                    </div>
-                                    <span className={clsx(
-                                        "text-xs font-bold uppercase tracking-wider transition-colors duration-300",
-                                        isActive ? "text-slate-800" : "text-slate-400"
-                                    )}>
-                                        {step}
-                                    </span>
-                                </div>
-                            );
-                        })}
-                    </div>
+            <div className="p-8 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
+                <div className="max-w-2xl mx-auto">
+                    <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-8 text-center">Detailed Tracking History</h3>
+                    <TrackingTimeline status={shipment.attendance >= 100 ? 'delivered' : shipment.attendance > 0 ? 'in-transit' : 'pending'} />
                 </div>
             </div>
 
@@ -129,7 +94,7 @@ export const ShipmentDetail: React.FC<ShipmentDetailProps> = ({ shipment, onBack
             <div className="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Main Info */}
                 <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm">
+                    <div className="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
                         <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Manifest Specifications</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-6">
@@ -137,24 +102,24 @@ export const ShipmentDetail: React.FC<ShipmentDetailProps> = ({ shipment, onBack
                                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Freight Class</p>
                                     <div className="flex items-center gap-2">
                                         <Package size={18} className="text-indigo-500" />
-                                        <p className="text-lg font-bold text-slate-800">{shipment.class}</p>
+                                        <p className="text-lg font-bold text-slate-800 dark:text-slate-200">{shipment.class}</p>
                                     </div>
-                                    <p className="text-xs text-slate-500 mt-1">Standard logistics classification</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Standard logistics classification</p>
                                 </div>
                                 <div className="pt-2">
                                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Transit Duration</p>
                                     <div className="flex items-center gap-2">
                                         <Clock size={18} className="text-indigo-500" />
-                                        <p className="text-lg font-bold text-slate-800">{shipment.age} Days</p>
+                                        <p className="text-lg font-bold text-slate-800 dark:text-slate-200">{shipment.age} Days</p>
                                     </div>
-                                    <p className="text-xs text-slate-500 mt-1">Calculated from dispatch timestamp</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Calculated from dispatch timestamp</p>
                                 </div>
                             </div>
-                            <div className="bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                            <div className="bg-slate-50/50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-3">Itemized Inventory</p>
                                 <div className="flex flex-wrap gap-2">
                                     {shipment.subjects.map(item => (
-                                        <span key={item} className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-700 shadow-sm">
+                                        <span key={item} className="px-3 py-1.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-200 shadow-sm">
                                             {item}
                                         </span>
                                     ))}
@@ -166,10 +131,10 @@ export const ShipmentDetail: React.FC<ShipmentDetailProps> = ({ shipment, onBack
                     {/* Sensor Widgets */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         {sensors.map(sensor => (
-                            <div key={sensor.label} className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm hover:border-indigo-100 transition-colors group">
+                            <div key={sensor.label} className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm hover:border-indigo-100 dark:hover:border-indigo-900 transition-colors group">
                                 <sensor.icon size={20} className={clsx("mb-3 transition-transform group-hover:scale-110", sensor.color)} />
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{sensor.label}</p>
-                                <p className="text-base font-bold text-slate-800 my-0.5">{sensor.value}</p>
+                                <p className="text-base font-bold text-slate-800 dark:text-slate-200 my-0.5">{sensor.value}</p>
                                 <p className="text-[10px] font-medium text-emerald-500 flex items-center gap-1">
                                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                                     {sensor.status}
@@ -204,7 +169,7 @@ export const ShipmentDetail: React.FC<ShipmentDetailProps> = ({ shipment, onBack
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
                         <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Operational Summary</h4>
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
@@ -219,13 +184,13 @@ export const ShipmentDetail: React.FC<ShipmentDetailProps> = ({ shipment, onBack
                                 <span className="text-xs text-slate-500">Route Optimization</span>
                                 <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">ACTIVE</span>
                             </div>
-                            <div className="pt-4 mt-2 border-t border-slate-50 flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
+                            <div className="pt-4 mt-2 border-t border-slate-50 dark:border-slate-700 flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400">
                                     <User size={14} />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-bold text-slate-800">Assigned Dispatcher</p>
-                                    <p className="text-[10px] text-slate-500">Michael S. (Unit 12)</p>
+                                    <p className="text-[10px] font-bold text-slate-800 dark:text-slate-200">Assigned Dispatcher</p>
+                                    <p className="text-[10px] text-slate-500 dark:text-slate-400">Michael S. (Unit 12)</p>
                                 </div>
                             </div>
                         </div>

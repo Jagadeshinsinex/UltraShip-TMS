@@ -9,26 +9,26 @@ const SECRET_KEY = "ultra-secret-key";
 // Mock Data Source - Strictly matching Schema
 // Mock Data Source - Strictly matching Schema
 let shipments: any[] = [
-    { id: "1", name: "Reliance Industries", age: 10, class: "Express", subjects: ["Petrochemicals", "Polymers"], attendance: 95.5 },
-    { id: "2", name: "Amazon India", age: 2, class: "Express", subjects: ["Consumer Electronics", "Fashion"], attendance: 45.5 },
-    { id: "3", name: "Flipkart Logistics", age: 3, class: "Standard", subjects: ["Mobile Phones", "Gadgets"], attendance: 100.0 },
-    { id: "4", name: "Tata Motors", age: 12, class: "Economy", subjects: ["Auto Parts", "Steel Rods"], attendance: 0.0 },
-    { id: "5", name: "Infosys Ltd", age: 1, class: "Standard", subjects: ["IT Equipment", "Servers"], attendance: 60.0 },
-    { id: "6", name: "HDFC Bank", age: 0, class: "Express", subjects: ["Documents", "Secure Assets"], attendance: 100.0 },
-    { id: "7", name: "Zomato Hyperpure", age: 1, class: "Express", subjects: ["Groceries", "Organic Produce"], attendance: 85.0 },
-    { id: "8", name: "Maruti Suzuki", age: 14, class: "Economy", subjects: ["Engine Parts", "Tires"], attendance: 10.0 },
-    { id: "9", name: "L&T Construction", age: 8, class: "Standard", subjects: ["Heavy Machinery", "Concrete"], attendance: 30.0 },
-    { id: "10", name: "Wipro Tech", age: 4, class: "Express", subjects: ["Networking Gear", "Laptops"], attendance: 95.0 },
-    { id: "11", name: "Dr. Reddy Labs", age: 5, class: "Standard", subjects: ["Medicines", "Pharma API"], attendance: 100.0 },
-    { id: "12", name: "Asian Paints", age: 6, class: "Standard", subjects: ["Paints", "Chemicals"], attendance: 50.0 },
-    { id: "13", name: "Adani Ports", age: 15, class: "Economy", subjects: ["Coal", "Minerals"], attendance: 5.0 },
-    { id: "14", name: "Mahindra & Mahindra", age: 9, class: "Standard", subjects: ["Tractors", "Spare Parts"], attendance: 75.0 },
-    { id: "15", name: "Airtel Digital", age: 2, class: "Express", subjects: ["Fiber Cables", "Routers"], attendance: 90.0 },
-    { id: "16", name: "ITC Limited", age: 4, class: "Standard", subjects: ["FMCG Goods", "Paper"], attendance: 100.0 },
-    { id: "17", name: "Hero MotoCorp", age: 7, class: "Economy", subjects: ["Bikes", "Alloy Wheels"], attendance: 20.0 },
-    { id: "18", name: "Britannia Ind", age: 3, class: "Standard", subjects: ["Biscuits", "Dairy Goods"], attendance: 100.0 },
-    { id: "19", name: "ICICI Logistics", age: 1, class: "Express", subjects: ["Vault Boxes", "Cash"], attendance: 98.0 },
-    { id: "20", name: "Biocon Pharma", age: 11, class: "Standard", subjects: ["Insulin", "Bio-similars"], attendance: 40.0 }
+    { id: "1", name: "Reliance Industries", age: 10, class: "Express", subjects: ["Petrochemicals", "Polymers"], attendance: 95.5, origin: "Mumbai Hub", destination: "Delhi DC", priority: "HIGH" },
+    { id: "2", name: "Amazon India", age: 2, class: "Express", subjects: ["Consumer Electronics", "Fashion"], attendance: 45.5, origin: "Primary Hub", destination: "Regional DC", priority: "HIGH" },
+    { id: "3", name: "Flipkart Logistics", age: 3, class: "Standard", subjects: ["Mobile Phones", "Gadgets"], attendance: 100.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" },
+    { id: "4", name: "Tata Motors", age: 12, class: "Economy", subjects: ["Auto Parts", "Steel Rods"], attendance: 0.0, origin: "Chennai Port", destination: "Bangalore DC", priority: "NORMAL" },
+    { id: "5", name: "Infosys Ltd", age: 1, class: "Standard", subjects: ["IT Equipment", "Servers"], attendance: 60.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" },
+    { id: "6", name: "HDFC Bank", age: 0, class: "Express", subjects: ["Documents", "Secure Assets"], attendance: 100.0, origin: "Primary Hub", destination: "Regional DC", priority: "HIGH" },
+    { id: "7", name: "Zomato Hyperpure", age: 1, class: "Express", subjects: ["Groceries", "Organic Produce"], attendance: 85.0, origin: "Primary Hub", destination: "Regional DC", priority: "HIGH" },
+    { id: "8", name: "Maruti Suzuki", age: 14, class: "Economy", subjects: ["Engine Parts", "Tires"], attendance: 10.0, origin: "Gurgaon Warehouse", destination: "Ahmedabad DC", priority: "NORMAL" },
+    { id: "9", name: "L&T Construction", age: 8, class: "Standard", subjects: ["Heavy Machinery", "Concrete"], attendance: 30.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" },
+    { id: "10", name: "Wipro Tech", age: 4, class: "Express", subjects: ["Networking Gear", "Laptops"], attendance: 95.0, origin: "Primary Hub", destination: "Regional DC", priority: "HIGH" },
+    { id: "11", name: "Dr. Reddy Labs", age: 5, class: "Standard", subjects: ["Medicines", "Pharma API"], attendance: 100.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" },
+    { id: "12", name: "Asian Paints", age: 6, class: "Standard", subjects: ["Paints", "Chemicals"], attendance: 50.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" },
+    { id: "13", name: "Adani Ports", age: 15, class: "Economy", subjects: ["Coal", "Minerals"], attendance: 5.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" },
+    { id: "14", name: "Mahindra & Mahindra", age: 9, class: "Standard", subjects: ["Tractors", "Spare Parts"], attendance: 75.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" },
+    { id: "15", name: "Airtel Digital", age: 2, class: "Express", subjects: ["Fiber Cables", "Routers"], attendance: 90.0, origin: "Primary Hub", destination: "Regional DC", priority: "HIGH" },
+    { id: "16", name: "ITC Limited", age: 4, class: "Standard", subjects: ["FMCG Goods", "Paper"], attendance: 100.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" },
+    { id: "17", name: "Hero MotoCorp", age: 7, class: "Economy", subjects: ["Bikes", "Alloy Wheels"], attendance: 20.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" },
+    { id: "18", name: "Britannia Ind", age: 3, class: "Standard", subjects: ["Biscuits", "Dairy Goods"], attendance: 100.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" },
+    { id: "19", name: "ICICI Logistics", age: 1, class: "Express", subjects: ["Vault Boxes", "Cash"], attendance: 98.0, origin: "Primary Hub", destination: "Regional DC", priority: "HIGH" },
+    { id: "20", name: "Biocon Pharma", age: 11, class: "Standard", subjects: ["Insulin", "Bio-similars"], attendance: 40.0, origin: "Primary Hub", destination: "Regional DC", priority: "NORMAL" }
 ];
 
 // Resolvers
@@ -96,6 +96,9 @@ export const resolvers = {
             }
             const newShipment = {
                 id: `SHP-${Math.floor(Math.random() * 100000)}`,
+                origin: "Primary Hub", // Default value
+                destination: "Regional DC", // Default value
+                priority: args.input.class === 'Express' ? 'HIGH' : 'NORMAL', // Auto-calculate from class
                 ...args.input
             };
             shipments.unshift(newShipment); // Add to top

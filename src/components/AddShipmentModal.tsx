@@ -14,6 +14,9 @@ const ADD_SHIPMENT = gql`
       class
       subjects
       attendance
+      origin
+      destination
+      priority
     }
   }
 `;
@@ -27,6 +30,9 @@ const UPDATE_SHIPMENT = gql`
       class
       subjects
       attendance
+      origin
+      destination
+      priority
     }
   }
 `;
@@ -43,10 +49,10 @@ export const AddShipmentModal: React.FC<AddShipmentModalProps> = ({ isOpen, onCl
 
     const [formData, setFormData] = useState({
         name: '',
-        age: 0,
+        age: '' as string | number,
         class: 'Standard',
         subjects: '',
-        attendance: 0,
+        attendance: '' as string | number,
     });
 
     useEffect(() => {
@@ -61,10 +67,10 @@ export const AddShipmentModal: React.FC<AddShipmentModalProps> = ({ isOpen, onCl
         } else {
             setFormData({
                 name: '',
-                age: 0,
+                age: '',
                 class: 'Standard',
                 subjects: '',
-                attendance: 0,
+                attendance: '',
             });
         }
     }, [shipmentToEdit, isOpen]);
@@ -120,10 +126,10 @@ export const AddShipmentModal: React.FC<AddShipmentModalProps> = ({ isOpen, onCl
 
         const inputPayload = {
             name: formData.name,
-            age: Number(formData.age),
+            age: formData.age === '' ? 0 : Number(formData.age),
             class: formData.class,
             subjects: subjectList.length > 0 ? subjectList : ['General Cargo'],
-            attendance: Number(formData.attendance),
+            attendance: formData.attendance === '' ? 0 : Number(formData.attendance),
         };
 
         if (isEditMode && shipmentToEdit) {
@@ -180,7 +186,7 @@ export const AddShipmentModal: React.FC<AddShipmentModalProps> = ({ isOpen, onCl
                                     min="0"
                                     className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 outline-none"
                                     value={formData.age}
-                                    onChange={e => setFormData({ ...formData, age: Number(e.target.value) })}
+                                    onChange={e => setFormData({ ...formData, age: e.target.value })}
                                 />
                             </div>
                             <div>
@@ -193,7 +199,7 @@ export const AddShipmentModal: React.FC<AddShipmentModalProps> = ({ isOpen, onCl
                                     step="0.1"
                                     className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 outline-none"
                                     value={formData.attendance}
-                                    onChange={e => setFormData({ ...formData, attendance: Number(e.target.value) })}
+                                    onChange={e => setFormData({ ...formData, attendance: e.target.value })}
                                 />
                             </div>
                         </div>

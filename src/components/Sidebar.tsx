@@ -7,7 +7,8 @@ import {
     ChevronRight,
     Settings,
     LogOut,
-    Menu
+    Menu,
+    BarChart3
 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useAuth } from '../context/AuthContext';
@@ -15,9 +16,11 @@ import { useAuth } from '../context/AuthContext';
 interface SidebarProps {
     isCollapsed: boolean;
     toggleSidebar: () => void;
+    currentView: string;
+    onNavigate: (view: string) => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar, currentView, onNavigate }) => {
     const [fleetOpen, setFleetOpen] = useState(true);
     const { logout } = useAuth();
 
@@ -70,8 +73,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
             </div>
 
             <div className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
-                <NavItem icon={LayoutDashboard} label="Dashboard" />
-                <NavItem icon={Package} label="Shipments" active />
+                <NavItem
+                    icon={LayoutDashboard}
+                    label="Dashboard"
+                    active={currentView === 'dashboard'}
+                    onClick={() => onNavigate('dashboard')}
+                />
+                <NavItem
+                    icon={Package}
+                    label="Shipments"
+                    active={currentView === 'shipments'}
+                    onClick={() => onNavigate('shipments')}
+                />
 
                 <NavItem
                     icon={Truck}
@@ -83,16 +96,49 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, toggleSidebar }) 
 
                 {!isCollapsed && fleetOpen && (
                     <div className="ml-9 space-y-1 mb-2">
-                        <div className="px-3 py-2 text-sm text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-md cursor-pointer transition-colors">Drivers</div>
-                        <div className="px-3 py-2 text-sm text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-md cursor-pointer transition-colors">Vehicles</div>
+                        <div
+                            className={clsx(
+                                "px-3 py-2 text-sm rounded-md cursor-pointer transition-colors",
+                                currentView === 'drivers'
+                                    ? "text-indigo-600 bg-indigo-50 font-semibold"
+                                    : "text-slate-500 hover:text-indigo-600 hover:bg-indigo-50"
+                            )}
+                            onClick={() => onNavigate('drivers')}
+                        >
+                            Drivers
+                        </div>
+                        <div
+                            className={clsx(
+                                "px-3 py-2 text-sm rounded-md cursor-pointer transition-colors",
+                                currentView === 'vehicles'
+                                    ? "text-indigo-600 bg-indigo-50 font-semibold"
+                                    : "text-slate-500 hover:text-indigo-600 hover:bg-indigo-50"
+                            )}
+                            onClick={() => onNavigate('vehicles')}
+                        >
+                            Vehicles
+                        </div>
                     </div>
                 )}
+
+                <NavItem
+                    icon={BarChart3}
+                    label="Analytics & Reports"
+                    active={currentView === 'analytics'}
+                    onClick={() => onNavigate('analytics')}
+                />
             </div>
 
             <div className="p-4 border-t border-slate-100 space-y-1">
-                <NavItem icon={Settings} label="Settings" />
+                <NavItem
+                    icon={Settings}
+                    label="Settings"
+                    active={currentView === 'settings'}
+                    onClick={() => onNavigate('settings')}
+                />
                 <NavItem icon={LogOut} label="Logout" onClick={logout} />
             </div>
         </aside>
     );
 };
+

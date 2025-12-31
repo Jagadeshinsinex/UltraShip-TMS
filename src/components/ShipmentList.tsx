@@ -6,6 +6,7 @@ import { LayoutGrid, List, Search, Filter, ChevronLeft, ChevronRight, Plus } fro
 import { clsx } from 'clsx';
 import type { Shipment } from '../types';
 import { gql, useQuery, useMutation } from '@apollo/client';
+import { useSearch } from '../context/SearchContext';
 
 const GET_SHIPMENTS = gql`
   query GetShipments($limit: Int, $offset: Int, $sortBy: String, $status: String, $search: String) {
@@ -18,6 +19,9 @@ const GET_SHIPMENTS = gql`
         class
         subjects
         attendance
+        origin
+        destination
+        priority
       }
     }
   }
@@ -39,7 +43,7 @@ interface ShipmentListProps {
 export const ShipmentList: React.FC<ShipmentListProps> = ({ onEdit, onNew }) => {
   const [viewMode, setViewMode] = useState<'grid' | 'tile'>('grid');
   const [selectedShipment, setSelectedShipment] = useState<Shipment | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const { globalSearchQuery, setGlobalSearchQuery } = useSearch();
   const [activeTab, setActiveTab] = useState('All Shipments');
   const [page, setPage] = useState(0);
   const [sortBy, setSortBy] = useState('name_ASC');
@@ -47,7 +51,7 @@ export const ShipmentList: React.FC<ShipmentListProps> = ({ onEdit, onNew }) => 
   // Reset to first page when filtering/searching
   useEffect(() => {
     setPage(0);
-  }, [searchQuery, activeTab, sortBy]);
+  }, [globalSearchQuery, activeTab, sortBy]);
 
   // Handle browser back button
   useEffect(() => {
@@ -81,7 +85,7 @@ export const ShipmentList: React.FC<ShipmentListProps> = ({ onEdit, onNew }) => 
       offset: page * PAGE_SIZE,
       sortBy: sortBy,
       status: activeTab,
-      search: searchQuery
+      search: globalSearchQuery
     },
     fetchPolicy: 'cache-and-network'
   });
@@ -196,8 +200,8 @@ export const ShipmentList: React.FC<ShipmentListProps> = ({ onEdit, onNew }) => 
           <input
             type="text"
             placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            value={globalSearchQuery}
+            onChange={(e) => setGlobalSearchQuery(e.target.value)}
             className="flex-1 bg-transparent text-xs font-semibold text-slate-700 focus:outline-none placeholder:text-slate-400"
           />
 
@@ -281,7 +285,7 @@ export const ShipmentList: React.FC<ShipmentListProps> = ({ onEdit, onNew }) => 
 
         {filteredShipments.length === 0 && !loading && (
           <div className="text-center py-20 text-slate-400">
-            <p>No shipments found matching "{searchQuery}"</p>
+            <p>No shipments found matching "{globalSearchQuery}"</p>
           </div>
         )}
       </div>

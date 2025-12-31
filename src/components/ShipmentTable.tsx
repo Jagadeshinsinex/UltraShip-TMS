@@ -47,8 +47,8 @@ export const ShipmentTable: React.FC<ShipmentTableProps> = ({ shipments, onSelec
                                     <StatusBadge status={status} />
                                 </td>
                                 <td className="px-4 py-3 text-slate-700 font-medium">{shipment.name}</td>
-                                <td className="px-4 py-3 text-slate-500 italic">Primary Hub</td>
-                                <td className="px-4 py-3 text-slate-500 italic">Regional DC</td>
+                                <td className="px-4 py-3 text-slate-500 italic">{shipment.origin || 'Primary Hub'}</td>
+                                <td className="px-4 py-3 text-slate-500 italic">{shipment.destination || 'Regional DC'}</td>
                                 <td className="px-4 py-3 text-slate-600 font-mono">{shipment.age} Days</td>
                                 <td className="px-4 py-3">
                                     <span className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-xs border border-slate-200">
@@ -70,7 +70,7 @@ export const ShipmentTable: React.FC<ShipmentTableProps> = ({ shipments, onSelec
                                     </div>
                                 </td>
                                 <td className="px-4 py-3">
-                                    <StatusBadge status={priority} />
+                                    <StatusBadge status={shipment.priority || priority} />
                                 </td>
                                 <td className="px-4 py-3 text-right relative" onClick={(e) => e.stopPropagation()}>
                                     <button
