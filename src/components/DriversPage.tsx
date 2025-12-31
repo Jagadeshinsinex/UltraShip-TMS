@@ -153,13 +153,13 @@ export const DriversPage: React.FC = () => {
             {/* Page Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-black text-slate-900 dark:text-white">Driver Management</h1>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage and monitor driver performance</p>
+                    <h1 className="text-2xl font-black text-slate-900">Driver Management</h1>
+                    <p className="text-sm text-slate-500 mt-1">Manage and monitor driver performance</p>
                 </div>
                 {role === 'ADMIN' && (
                     <button
                         onClick={() => setIsAddModalOpen(true)}
-                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-bold shadow-md shadow-indigo-100 dark:shadow-none transition-all hover:scale-[1.02] active:scale-[0.98]"
+                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-bold shadow-md shadow-indigo-100 transition-all hover:scale-[1.02] active:scale-[0.98]"
                     >
                         <Plus size={18} />
                         Add Driver
@@ -169,11 +169,11 @@ export const DriversPage: React.FC = () => {
 
             {/* Stats Overview */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Total Drivers</p>
-                            <p className="text-2xl font-black text-slate-900 dark:text-white mt-1">{drivers.length}</p>
+                            <p className="text-xs text-slate-500 font-medium">Total Drivers</p>
+                            <p className="text-2xl font-black text-slate-900 mt-1">{drivers.length}</p>
                         </div>
                         <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                             <User className="text-indigo-600" size={24} />
@@ -181,11 +181,11 @@ export const DriversPage: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Active Routes</p>
-                            <p className="text-2xl font-black text-slate-900 dark:text-white mt-1">
+                            <p className="text-xs text-slate-500 font-medium">Active Routes</p>
+                            <p className="text-2xl font-black text-slate-900 mt-1">
                                 {drivers.reduce((acc, d) => acc + d.totalShipments, 0)}
                             </p>
                         </div>
@@ -195,11 +195,11 @@ export const DriversPage: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Avg Performance</p>
-                            <p className="text-2xl font-black text-slate-900 dark:text-white mt-1">
+                            <p className="text-xs text-slate-500 font-medium">Avg Performance</p>
+                            <p className="text-2xl font-black text-slate-900 mt-1">
                                 {Math.round(drivers.reduce((acc, d) => acc + d.performance, 0) / (drivers.length || 1))}%
                             </p>
                         </div>
@@ -209,11 +209,11 @@ export const DriversPage: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Completed</p>
-                            <p className="text-2xl font-black text-slate-900 dark:text-white mt-1">
+                            <p className="text-xs text-slate-500 font-medium">Completed</p>
+                            <p className="text-2xl font-black text-slate-900 mt-1">
                                 {drivers.reduce((acc, d) => acc + d.completedShipments, 0)}
                             </p>
                         </div>
@@ -229,18 +229,18 @@ export const DriversPage: React.FC = () => {
                 {drivers.map(driver => (
                     <div
                         key={driver.id}
-                        className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-900 transition-all duration-300 group"
+                        className="bg-white rounded-xl border border-slate-200 hover:shadow-lg hover:border-indigo-200 transition-all duration-300 group"
                     >
                         <div className="p-5 space-y-4">
                             {/* Header */}
                             <div className="flex items-start justify-between">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center">
-                                        <User className="text-indigo-600 dark:text-indigo-400" size={22} />
+                                    <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                                        <User className="text-indigo-600" size={22} />
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-slate-900 dark:text-white">{driver.name}</h3>
-                                        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">{driver.id}</p>
+                                        <h3 className="font-bold text-slate-900">{driver.name}</h3>
+                                        <p className="text-xs text-slate-500 font-mono">{driver.id}</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-1 shrink-0">
@@ -248,19 +248,19 @@ export const DriversPage: React.FC = () => {
                                         <div className="relative">
                                             <button
                                                 onClick={() => setOpenMenuId(openMenuId === driver.id ? null : driver.id)}
-                                                className="p-1.5 rounded-md text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-indigo-600 transition-colors"
+                                                className="p-1.5 rounded-md text-slate-400 hover:bg-slate-100 hover:text-indigo-600 transition-colors"
                                             >
                                                 <MoreVertical size={18} />
                                             </button>
 
                                             {openMenuId === driver.id && (
-                                                <div className="absolute right-0 top-8 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
+                                                <div className="absolute right-0 top-8 w-48 bg-white rounded-xl shadow-xl border border-slate-100 z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
                                                     <button
                                                         onClick={() => {
                                                             handleEditDriver(driver);
                                                             setOpenMenuId(null);
                                                         }}
-                                                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                                                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors text-left"
                                                     >
                                                         <Edit2 size={16} />
                                                         Edit Details
@@ -270,7 +270,7 @@ export const DriversPage: React.FC = () => {
                                                             handleDeleteDriver(driver.id);
                                                             setOpenMenuId(null);
                                                         }}
-                                                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors text-left border-t border-slate-50 dark:border-slate-700/50"
+                                                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors text-left border-t border-slate-50"
                                                     >
                                                         <Trash2 size={16} />
                                                         Remove Driver
@@ -283,33 +283,33 @@ export const DriversPage: React.FC = () => {
                             </div>
 
                             {/* Contact Info */}
-                            <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-700">
+                            <div className="space-y-2 pt-2 border-t border-slate-100">
                                 <div className="flex items-center gap-2 text-xs">
                                     <Phone size={14} className="text-slate-400" />
-                                    <span className="text-slate-600 dark:text-slate-300">{driver.phone}</span>
+                                    <span className="text-slate-600">{driver.phone}</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-xs">
                                     <Mail size={14} className="text-slate-400" />
-                                    <span className="text-slate-600 dark:text-slate-300 truncate">{driver.email}</span>
+                                    <span className="text-slate-600 truncate">{driver.email}</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-xs">
                                     <Truck size={14} className="text-slate-400" />
-                                    <span className="text-slate-600 dark:text-slate-300">{driver.vehicleType}</span>
+                                    <span className="text-slate-600">{driver.vehicleType}</span>
                                 </div>
                             </div>
 
                             {/* Performance Metrics */}
-                            <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100 dark:border-slate-700">
+                            <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">
                                 <div className="text-center">
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Total</p>
-                                    <p className="text-lg font-black text-slate-900 dark:text-white">{driver.totalShipments}</p>
+                                    <p className="text-xs text-slate-500 mb-1">Total</p>
+                                    <p className="text-lg font-black text-slate-900">{driver.totalShipments}</p>
                                 </div>
-                                <div className="text-center border-x border-slate-100 dark:border-slate-700">
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Done</p>
-                                    <p className="text-lg font-black text-emerald-600 dark:text-emerald-400">{driver.completedShipments}</p>
+                                <div className="text-center border-x border-slate-100">
+                                    <p className="text-xs text-slate-500 mb-1">Done</p>
+                                    <p className="text-lg font-black text-emerald-600">{driver.completedShipments}</p>
                                 </div>
                                 <div className="text-center">
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Score</p>
+                                    <p className="text-xs text-slate-500 mb-1">Score</p>
                                     <p className={clsx(
                                         "text-lg font-black",
                                         driver.performance >= 75 ? "text-emerald-600" :

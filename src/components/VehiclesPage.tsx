@@ -138,13 +138,13 @@ export const VehiclesPage: React.FC = () => {
             {/* Page Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-black text-slate-900 dark:text-white">Vehicle Management</h1>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Monitor fleet and vehicle performance</p>
+                    <h1 className="text-2xl font-black text-slate-900">Vehicle Management</h1>
+                    <p className="text-sm text-slate-500 mt-1">Monitor fleet and vehicle performance</p>
                 </div>
                 {role === 'ADMIN' && (
                     <button
                         onClick={() => setIsAddModalOpen(true)}
-                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-bold shadow-md shadow-indigo-100 dark:shadow-none transition-all hover:scale-[1.02] active:scale-[0.98]"
+                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-bold shadow-md shadow-indigo-100 transition-all hover:scale-[1.02] active:scale-[0.98]"
                     >
                         <Plus size={18} />
                         Add Vehicle
@@ -154,11 +154,11 @@ export const VehiclesPage: React.FC = () => {
 
             {/* Stats Overview */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Total Fleet</p>
-                            <p className="text-2xl font-black text-slate-900 dark:text-white mt-1">{vehicles.length}</p>
+                            <p className="text-xs text-slate-500 font-medium">Total Fleet</p>
+                            <p className="text-2xl font-black text-slate-900 mt-1">{vehicles.length}</p>
                         </div>
                         <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                             <Truck className="text-indigo-600" size={24} />
@@ -166,10 +166,10 @@ export const VehiclesPage: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Active Vehicles</p>
+                            <p className="text-xs text-slate-500 font-medium">Active Vehicles</p>
                             <p className="text-2xl font-black text-emerald-600 mt-1">{activeVehicles}</p>
                         </div>
                         <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
@@ -178,11 +178,11 @@ export const VehiclesPage: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Total Mileage</p>
-                            <p className="text-2xl font-black text-slate-900 dark:text-white mt-1">
+                            <p className="text-xs text-slate-500 font-medium">Total Mileage</p>
+                            <p className="text-2xl font-black text-slate-900 mt-1">
                                 {(totalMileage / 1000).toFixed(0)}K
                             </p>
                         </div>
@@ -192,10 +192,10 @@ export const VehiclesPage: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm">
+                <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Maintenance Due</p>
+                            <p className="text-xs text-slate-500 font-medium">Maintenance Due</p>
                             <p className="text-2xl font-black text-orange-600 mt-1">
                                 {vehicles.filter(v => v.status === 'In Maintenance').length}
                             </p>
@@ -212,7 +212,7 @@ export const VehiclesPage: React.FC = () => {
                 {vehicles.map(vehicle => (
                     <div
                         key={vehicle.id}
-                        className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:border-indigo-200 dark:hover:border-indigo-900 transition-all duration-300 group"
+                        className="bg-white rounded-xl border border-slate-200 hover:shadow-lg hover:border-indigo-200 transition-all duration-300 group"
                     >
                         <div className="p-5 space-y-4">
                             {/* Header */}
@@ -229,8 +229,8 @@ export const VehiclesPage: React.FC = () => {
                                         )} size={22} />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <h3 className="font-bold text-slate-900 dark:text-white truncate">{vehicle.model}</h3>
-                                        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">{vehicle.id}</p>
+                                        <h3 className="font-bold text-slate-900 truncate">{vehicle.model}</h3>
+                                        <p className="text-xs text-slate-500 font-mono">{vehicle.id}</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-1 shrink-0">
@@ -238,19 +238,19 @@ export const VehiclesPage: React.FC = () => {
                                         <div className="relative">
                                             <button
                                                 onClick={() => setOpenMenuId(openMenuId === vehicle.id ? null : vehicle.id)}
-                                                className="p-1.5 rounded-md text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-indigo-600 transition-colors"
+                                                className="p-1.5 rounded-md text-slate-400 hover:bg-slate-100 hover:text-indigo-600 transition-colors"
                                             >
                                                 <MoreVertical size={18} />
                                             </button>
 
                                             {openMenuId === vehicle.id && (
-                                                <div className="absolute right-0 top-8 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
+                                                <div className="absolute right-0 top-8 w-48 bg-white rounded-xl shadow-xl border border-slate-100 z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
                                                     <button
                                                         onClick={() => {
                                                             handleEditVehicle(vehicle);
                                                             setOpenMenuId(null);
                                                         }}
-                                                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                                                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors text-left"
                                                     >
                                                         <Edit2 size={16} />
                                                         Edit Details
@@ -260,7 +260,7 @@ export const VehiclesPage: React.FC = () => {
                                                             handleDeleteVehicle(vehicle.id);
                                                             setOpenMenuId(null);
                                                         }}
-                                                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors text-left border-t border-slate-50 dark:border-slate-700/50"
+                                                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors text-left border-t border-slate-50"
                                                     >
                                                         <Trash2 size={16} />
                                                         Remove Vehicle
@@ -273,9 +273,9 @@ export const VehiclesPage: React.FC = () => {
                             </div>
 
                             {/* Status Badge */}
-                            <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-700">
-                                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">License Plate</span>
-                                <span className="text-xs font-bold text-slate-700 dark:text-slate-200 font-mono bg-slate-100 dark:bg-slate-700/50 px-2 py-1 rounded">
+                            <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+                                <span className="text-xs text-slate-500 font-medium">License Plate</span>
+                                <span className="text-xs font-bold text-slate-700 font-mono bg-slate-100 px-2 py-1 rounded">
                                     {vehicle.licensePlate}
                                 </span>
                             </div>
@@ -294,30 +294,30 @@ export const VehiclesPage: React.FC = () => {
                                     </span>
                                 </div>
                                 <div className="flex items-center justify-between text-xs">
-                                    <span className="text-slate-500 dark:text-slate-400">Type</span>
-                                    <span className="text-slate-700 dark:text-slate-300 font-semibold">{vehicle.type}</span>
+                                    <span className="text-slate-500">Type</span>
+                                    <span className="text-slate-700 font-semibold">{vehicle.type}</span>
                                 </div>
                                 <div className="flex items-center justify-between text-xs">
-                                    <span className="text-slate-500 dark:text-slate-400">Current Shipments</span>
-                                    <span className="text-indigo-600 dark:text-indigo-400 font-bold">{vehicle.currentShipments}</span>
+                                    <span className="text-slate-500">Current Shipments</span>
+                                    <span className="text-indigo-600 font-bold">{vehicle.currentShipments}</span>
                                 </div>
                             </div>
 
                             {/* Performance Metrics */}
-                            <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100 dark:border-slate-700">
+                            <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100">
                                 <div>
                                     <div className="flex items-center gap-1.5 mb-1">
                                         <Gauge size={12} className="text-slate-400" />
-                                        <p className="text-xs text-slate-500 dark:text-slate-400">Mileage</p>
+                                        <p className="text-xs text-slate-500">Mileage</p>
                                     </div>
-                                    <p className="text-sm font-black text-slate-900 dark:text-white">{vehicle.totalMileage.toLocaleString()} km</p>
+                                    <p className="text-sm font-black text-slate-900">{vehicle.totalMileage.toLocaleString()} km</p>
                                 </div>
                                 <div>
                                     <div className="flex items-center gap-1.5 mb-1">
                                         <Calendar size={12} className="text-slate-400" />
-                                        <p className="text-xs text-slate-500 dark:text-slate-400">Last Service</p>
+                                        <p className="text-xs text-slate-500">Last Service</p>
                                     </div>
-                                    <p className="text-sm font-black text-slate-900 dark:text-white">{vehicle.lastService}</p>
+                                    <p className="text-sm font-black text-slate-900">{vehicle.lastService}</p>
                                 </div>
                             </div>
                         </div>
